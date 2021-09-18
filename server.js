@@ -34,34 +34,38 @@ db.initialize("mongodb+srv://admin:admin@cluster0.ysxvp.mongodb.net/sample_resta
 app.get("/", (req, res) => {
     console.log(req.headers);
     res.json({ message: "API Listening" });
+}).catch((err) => {
+    console.log(err);
 });
 app.post("/api/restaurants", (req, res) => {
     db.addNewRestaurant(req.params)
     res.status(201).json({ message: `added a new restaurant` })
+}).catch((err) => {
+    res.status(404)(err);
 });
 app.get("/api/restaurants/:page/:perPage/:borough", (req, res) => {
     db.getAllRestaurants(req.params.page, req.params.perPage, req.params.borough)
     res.status(200).json({ message: "API Listening" });
 }).catch((err) => {
-    console.log(err);
+    res.status(404)(err);
 });
 app.get("/api/restaurants/:id", (req, res) => {
     db.getRestaurantById(req.params.id);
     res.json({ message: `get restaurant with id: ${req.params.id}` });
 }).catch((err) => {
-    console.log(err);
+    res.status(404)(err);
 });
 app.put("/api/restaurants/:id", (req, res) => {
     db.updateRestaurantById(req.params.id)
     res.json({ message: `updated: ${req.params.id}` });
 }).catch((err) => {
-    console.log(err);
+    res.status(404)(err);
 });
 app.delete("/api/restaurants/:id", (req, res) => {
     db.deleteRestaurantById(req.params.id);
     res.status(200)({ "message": `deleted restaurant with identifer: ${req.params.id}` });
 }).catch((err) => {
-    console.log(err);
+    res.status(404)(err);
 });
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT);
