@@ -5,7 +5,7 @@
 *  (including web sites) or distributed to other students.
 * 
 *  Name: Matthew Lee Student ID: 117715185 Date: 17/06/21
-*  Heroku Link: _______________________________________________________________
+*  Heroku Link: https://web422-restaurantapi-mlee.herokuapp.com/
 *
 ********************************************************************************/
 
