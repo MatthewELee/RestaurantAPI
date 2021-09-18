@@ -36,25 +36,32 @@ app.get("/", (req, res) => {
     res.json({ message: "API Listening" });
 });
 app.post("/api/restaurants", (req, res) => {
-    if (db.addNewRestaurant(req.params)) {
-        res.status(201).json({ message: `added a new restaurant` })
-    };
+    db.addNewRestaurant(req.params)
+    res.status(201).json({ message: `added a new restaurant` })
 });
 app.get("/api/restaurants/:page/:perPage/:borough", (req, res) => {
     db.getAllRestaurants(req.params.page, req.params.perPage, req.params.borough)
     res.status(200).json({ message: "API Listening" });
+}).catch((err) => {
+    console.log(err);
 });
 app.get("/api/restaurants/:id", (req, res) => {
     db.getRestaurantById(req.params.id);
     res.json({ message: `get restaurant with id: ${req.params.id}` });
+}).catch((err) => {
+    console.log(err);
 });
 app.put("/api/restaurants/:id", (req, res) => {
     db.updateRestaurantById(req.params.id)
     res.json({ message: `updated: ${req.params.id}` });
+}).catch((err) => {
+    console.log(err);
 });
 app.delete("/api/restaurants/:id", (req, res) => {
     db.deleteRestaurantById(req.params.id);
     res.status(200)({ "message": `deleted restaurant with identifer: ${req.params.id}` });
+}).catch((err) => {
+    console.log(err);
 });
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT);
