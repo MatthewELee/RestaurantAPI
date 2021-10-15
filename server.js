@@ -30,6 +30,7 @@ db.initialize("mongodb+srv://admin:admin@cluster0.ysxvp.mongodb.net/sample_resta
 }).catch((err) => {
     console.log(err);
 });
+
 // setup a 'route' to listen on the default url path
 app.get("/", (req, res) => {
     console.log(req.headers);
@@ -37,12 +38,7 @@ app.get("/", (req, res) => {
 }).catch((err) => {
     console.log(err);
 });
-app.post("/api/restaurants", (req, res) => {
-    db.addNewRestaurant(req.params)
-    res.status(201).json({ message: `added a new restaurant` })
-}).catch((err) => {
-    res.status(404)(err);
-});
+
 app.get("/api/restaurants/:page/:perPage/:borough", (req, res) => {
     db.getAllRestaurants(req.params.page, req.params.perPage, req.params.borough)
     res.status(200).json({ message: "API Listening" });
